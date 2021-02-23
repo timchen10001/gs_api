@@ -97,7 +97,7 @@ class Entity {
 
   // query
   Read() {
-    const TargetIndex = this._FindColumnsIndexById();
+    const TargetIndex = this._FindRowIndexById();
     if (!TargetIndex) {
       throw new Error('id no found');
     }
@@ -117,7 +117,7 @@ class Entity {
 
   // update
   Update() {
-    const TargetIndex = this._FindColumnsIndexById();
+    const TargetIndex = this._FindRowIndexById();
     if (!TargetIndex) {
       throw new Error(`id no found`)
     }
@@ -134,7 +134,7 @@ class Entity {
 
   // delete
   Delete() {
-    const TargetIndex = this._FindColumnsIndexById();
+    const TargetIndex = this._FindRowIndexById();
     if (!TargetIndex) {
       throw new Error(`id no found`);
     }
@@ -162,7 +162,7 @@ class Entity {
     return `${MDY[2]}/${MDY[0]}/${MDY[1]}`;
   }
 
-  _FindColumnsIndexById() {
+  _FindRowIndexById() {
     // 線性搜索
     const targetId = parseInt(this.data.id);
     let targetIdIndex = 0;
