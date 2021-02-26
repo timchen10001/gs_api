@@ -163,11 +163,32 @@ class Entity {
   }
 
   _FindRowIndexById() {
-    if(!this.data.id) {
-       return 0;
+    if (!this.data.id) {
+      return 0;
     };
-    // 線性搜索
     const targetId = parseInt(this.data.id);
+
+    // 迭代搜尋前，先利用 id 相對位置，檢查目標 id 存不存在？ O(1)
+    const guessingId = targetId + 1;
+    if (this.Sheet.getRange(guessingId, 1) === targetId) {
+      return guessingId;
+    }
+
+    // 二元搜索
+    let left = 2, right = this.LastRow;
+    while (left <= right) {
+      const mid = parseInt((left + right) / 2);
+      const curId = this.Sheet.getRange(mid, 1).getValue();
+      if (curId === targetId) {
+        return mid;
+      } else if (curId < targetId) {
+        left = mid+1;
+      } else if (curId > targetId) {
+        right = mid-1;
+      }
+    }
+
+    // 線性搜索
     let targetIdIndex = 0;
     for (let i = 2; i <= this.LastRow; i++) {
       const current_id = this.Sheet.getRange(i, 1).getValue();
