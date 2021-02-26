@@ -163,6 +163,9 @@ class Entity {
   }
 
   _FindRowIndexById() {
+    if(!this.data.id) {
+       return 0;
+    };
     // 線性搜索
     const targetId = parseInt(this.data.id);
     let targetIdIndex = 0;
